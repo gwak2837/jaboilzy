@@ -5,12 +5,15 @@ import DialogueId from './DialogueId'
 import SortProducts from './KeyboardController'
 import NextLink from './NextLink'
 import PrevLink from './PrevLink'
+import { texts } from './text'
 
 export default function Page({ searchParams }: PageProps) {
+  const dialogueId = +(searchParams.id ?? 0)
+  const dialogue = texts[dialogueId] ?? {}
   return (
     <main className="flex items-center justify-center min-h-screen relative z-0 bg-black text-white">
       <Image
-        src={`/images/${searchParams.id}.png`}
+        src={`/images/${dialogueId}.png`}
         className="z-0"
         alt="image"
         fill
@@ -19,12 +22,13 @@ export default function Page({ searchParams }: PageProps) {
       />
       <div className="z-10 bg-black">
         <Suspense fallback={<div>...</div>}>
-          <div className="flex gap-2">
+          <div className="h-[2rem]">{dialogue.characterName}</div>
+          <div>{dialogue.line}</div>
+          <div className="flex gap-2 justify-center">
             <PrevLink />
-            <DialogueId />
             <NextLink />
-            <div>{searchParams.id}</div>
           </div>
+          <div className="text-center">{dialogueId}</div>
         </Suspense>
         <Suspense fallback={null}>
           <SortProducts />

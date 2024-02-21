@@ -15,8 +15,9 @@ export default function Page({ searchParams }: PageProps) {
         alt="image"
         fill
         objectFit="contain"
+        priority
       />
-      <div className="z-10">
+      <div className="z-10 bg-black">
         <Suspense fallback={<div>...</div>}>
           <div className="flex gap-2">
             <PrevLink />
